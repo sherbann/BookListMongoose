@@ -1,3 +1,15 @@
+//const req = require('express/lib/request')
+//const res = require('express/lib/response')
+//const { MongoClient, WriteError, BulkWriteResult } = require('mongodb');
+//const ObjectTitle = require('mongodb').ObjectId;
+//const ObjectAuthor = require('mongodb').ObjectId;
+//const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+//const { isValidObjectId } = require('mongoose');
+//let bookList = [];
+//let idno = 0;
+//bookStatus = "";
+
+
 const req = require('express/lib/request')
 const res = require('express/lib/response')
 const createError = require('http-errors')

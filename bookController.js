@@ -1,17 +1,7 @@
-const req = require('express/lib/request')
-const res = require('express/lib/response')
 const createError = require('http-errors')
-const { MongoClient, WriteError, BulkWriteResult } = require('mongodb');
 const ObjectId = require('mongodb').ObjectId;
-const ObjectTitle = require('mongodb').ObjectId;
-const ObjectAuthor = require('mongodb').ObjectId;
 const { Book } = require('./models/books')
-const { isValidObjectId } = require('mongoose');
 const uri = "mongodb+srv://mongo-DevAcademy:sheffield22@cluster0.buz9v.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-//let bookList = [];
-//let idno = 0;
-//bookStatus = "";
 
 
 exports.index = async function (req, res) {
@@ -38,7 +28,6 @@ exports.create = async function (req, res, next) {
         .then(() => res.send({ result: true }))
 }
 exports.show = async function (req, res, next) {
-
     Book.findOne({ _id: ObjectId(req.params.id) })
         .then((bookItem) => {
             if (!bookItem) {
@@ -48,7 +37,7 @@ exports.show = async function (req, res, next) {
         })
     }
 exports.byTitle = async function (req, res, next) {
-    Book.find({ title: req.params.title})
+    Book.find({ title:req.params.title})
         .then((bookItem) => {
             console.log(bookItem)
             if (!bookItem) {
@@ -58,7 +47,7 @@ exports.byTitle = async function (req, res, next) {
         })
 }
 exports.byAuthor = async function (req, res, next) {
-    Book.findOne({ author: ObjectId.toString(req.params.author)})
+    Book.findOne({ author:req.params.author})
         .then((bookItem) => {
             if (!bookItem) {
                 return (next(createError(404, "no book with that author")))
@@ -100,7 +89,7 @@ exports.update = async function (req, res, next) {
 exports.delete = async function (req, res, next) {
     Book.deleteOne({ _id: ObjectId(req.params.id) })
         .then((r) => {
-            if (r.isValidObjectId) {
+            if (r.deletedCount) {
                 return res.send({ result: true });
             }
             return (next(createError(404, "no book with that id")))        
